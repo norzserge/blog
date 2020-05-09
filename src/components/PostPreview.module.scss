@@ -1,0 +1,32 @@
+.preview {
+  display: flex;
+  margin-bottom: 55px;
+}
+.preview-img {
+  display: flex;
+  align-self: flex-start;
+  max-width: 20%;
+  margin-right: 20px;
+}
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.preview-text {
+  margin: 0;
+}
+.author-info {
+  margin-bottom: 8px;
+}
+.post-author {
+  margin-right: 8px;
+  color: #585858;
+}
+.post-date {
+  font-size: 12px;
+  align-self: center;
+  background: #f0db4e;
+  padding: 2px 5px;
+  border-radius: 3px;
+}

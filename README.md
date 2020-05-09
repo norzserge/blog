@@ -9,5 +9,6 @@
 - GIT
 - Yarn
 - SASS
+- SMACSS
 - HTML
 - Flex

@@ -1,0 +1,29 @@
+.btn {
+  padding: 6px 9px;
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(90%);
+  }
+}
+.ligth {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+.primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}

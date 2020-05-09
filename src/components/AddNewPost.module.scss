@@ -1,0 +1,16 @@
+.add-post {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ddd;
+}
+
+.control {
+  width: 100%;
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
