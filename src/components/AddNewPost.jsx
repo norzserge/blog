@@ -3,10 +3,11 @@ import Button from "./uikit/Button";
 import Textfield from "./uikit/Textfield";
 import Textarea from "./uikit/Textarea";
 import styles from "./AddNewPost.module.scss";
+import firebase from "../firebase";
 
 const AddNewPost = (props) => {
   return (
-    <div className={styles["add-post"]}>
+    <form className={styles["add-post"]}>
       <div className={styles.control}>
         <Textfield placeholder="Ваше имя" label="Имя" />
       </div>
@@ -20,7 +21,7 @@ const AddNewPost = (props) => {
       <div className={styles.control}>
         <Button text="Отправить" type="primary" />
       </div>
-    </div>
+    </form>
   );
 };
 
