@@ -8,23 +8,10 @@ const Blog = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // const unsuscribe = firebase
-    //   .firestore()
-    //   .collection("posts")
-    //   .onSnapshot((snapshot) => {
-    //     const newPosts = snapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       ...doc.data(),
-    //     }));
-
-    //     setPosts(newPosts);
-    //   });
-
-    // return () => unsuscribe();
     const fetchData = async () => {
       const db = firebase.firestore();
       const data = await db.collection("posts").get();
-      setPosts(data.docs.map((doc) => doc.data()));
+      setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     fetchData();
   }, []);
@@ -33,13 +20,14 @@ const Blog = (props) => {
     <div className={styles.blog}>
       <AddNewPost />
       <ul className={styles["blog-list"]}>
-        {posts.map((post) => (
-          <li key={post.id} className={styles["blog-item"]}>
+        {posts.map((post, index) => (
+          <li key={index} className={styles["blog-item"]}>
             <PostPreview
               name={post.name}
               date={post.date}
               header={post.header}
               text={post.text}
+              id={post.id}
             />
           </li>
         ))}
