@@ -7,8 +7,10 @@ const Textfield = (props) => {
       <label className={"label"}>{props.label}</label>
       <input
         type="text"
-        placeholder={props.placeholder}
+        defaultValue={props.value}
         className={styles.textfield}
+        placeholder={props.placeholder}
+        onChange={props.onChangeProp}
       />
     </div>
   );

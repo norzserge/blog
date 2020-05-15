@@ -10,5 +10,6 @@
 - Yarn
 - SASS
 - SMACSS
+- CSS-modules
 - HTML
 - Flex

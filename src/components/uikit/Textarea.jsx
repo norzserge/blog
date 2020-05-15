@@ -6,9 +6,11 @@ const Textarea = (props) => {
     <div className={styles["textarea-wrapper"]}>
       <label className="label">{props.label}</label>
       <textarea
-        placeholder={props.placeholder}
+        defaultValue={props.value}
         className={styles["textarea-field"]}
+        placeholder={props.placeholder}
         rows={props.rowNum}
+        onChange={props.onChangeProp}
       />
     </div>
   );
