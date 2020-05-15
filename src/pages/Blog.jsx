@@ -4,30 +4,30 @@ import PostPreview from "../components/PostPreview";
 import styles from "./Blog.module.scss";
 import firebase from "../firebase";
 
-function usePosts() {
+const Blog = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const unsuscribe = firebase
-      .firestore()
-      .collection("posts")
-      .onSnapshot((snapshot) => {
-        const newPosts = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+    // const unsuscribe = firebase
+    //   .firestore()
+    //   .collection("posts")
+    //   .onSnapshot((snapshot) => {
+    //     const newPosts = snapshot.docs.map((doc) => ({
+    //       id: doc.id,
+    //       ...doc.data(),
+    //     }));
 
-        setPosts(newPosts);
-      });
+    //     setPosts(newPosts);
+    //   });
 
-    return () => unsuscribe();
+    // return () => unsuscribe();
+    const fetchData = async () => {
+      const db = firebase.firestore();
+      const data = await db.collection("posts").get();
+      setPosts(data.docs.map((doc) => doc.data()));
+    };
+    fetchData();
   }, []);
-
-  return posts;
-}
-
-const Blog = (props) => {
-  const posts = usePosts();
 
   return (
     <div className={styles.blog}>
