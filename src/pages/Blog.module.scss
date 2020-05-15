@@ -10,6 +10,8 @@
 }
 
 .blog-item {
-  margin-bottom: 55px;
   list-style: none;
+  &:not(:empty) {
+    margin-bottom: 55px;
+  }
 }

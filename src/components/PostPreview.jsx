@@ -14,11 +14,11 @@ const PostPreview = (props) => {
       .set({ ...props, text });
   };
 
-  const onDelete = () => {
+  const onDelete = (e) => {
     const db = firebase.firestore();
     db.collection("posts").doc(props.id).delete();
 
-    document.querySelector("#post-id").remove();
+    e.target.parentElement.remove();
   };
 
   return (

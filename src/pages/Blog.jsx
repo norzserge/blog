@@ -11,7 +11,7 @@ const Blog = (props) => {
     const fetchData = async () => {
       const db = firebase.firestore();
       const data = await db.collection("posts").get();
-      setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setPosts(data.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     };
     fetchData();
   }, []);
