@@ -16,12 +16,14 @@ const PostPreview = (props) => {
     db.collection("posts")
       .doc(props.id)
       .set({ ...props, text, date });
+
     setEditable(!isEditable);
   };
 
   const onDelete = (e) => {
     const db = firebase.firestore();
     db.collection("posts").doc(props.id).delete();
+
     e.target.parentElement.parentElement.parentElement.remove();
   };
 
