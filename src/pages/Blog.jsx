@@ -22,7 +22,7 @@ const Blog = (props) => {
           ...doc.data(),
         }));
 
-        // сортировка (от нового к старому)
+        // сортировка (сначала новые сообщения)
         newPosts.sort((a, b) => {
           return new Date(b.date.seconds) - new Date(a.date.seconds);
         });
