@@ -58,7 +58,7 @@ const AddNewPost = (props) => {
         />
       </div>
       <div className={styles.control}>
-        <Button text="Post" type="primary" />
+        <Button text="Отправить" type="primary" />
       </div>
     </form>
   );

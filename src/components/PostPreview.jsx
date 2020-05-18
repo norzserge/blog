@@ -71,12 +71,20 @@ const PostPreview = (props) => {
 
         <Layout direction="horizontal" cssClass="editable-field-controls">
           {isEditable ? (
-            <Button text="Edit post" type="modify" onClickProp={onEdit} />
+            <Button
+              text="Редактировать пост"
+              type="modify"
+              onClickProp={onEdit}
+            />
           ) : (
             <>
-              <Button text="Save" type="success" onClickProp={onUpdate} />
-              <Button text="Cancel" type="ligth" onClickProp={onEdit} />
-              <Button text="Remove" type="danger" onClickProp={onDelete} />
+              <Button text="Сохранить" type="success" onClickProp={onUpdate} />
+              <Button text="Отменить" type="ligth" onClickProp={onEdit} />
+              <Button
+                text="Удалить пост"
+                type="danger"
+                onClickProp={onDelete}
+              />
             </>
           )}
         </Layout>
