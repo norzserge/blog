@@ -3,6 +3,7 @@ import styles from "./PostPreview.module.scss";
 import thumb from "../img/js.jpg";
 import Layout from "./uikit/Layout";
 import firebase from "../firebase";
+import SimpleDateTime from "react-simple-timestamp-to-date";
 
 const PostPreview = (props) => {
   const [text, setText] = useState(props.text);
@@ -17,7 +18,6 @@ const PostPreview = (props) => {
   const onDelete = (e) => {
     const db = firebase.firestore();
     db.collection("posts").doc(props.id).delete();
-
     e.target.parentElement.remove();
   };
 
@@ -39,7 +39,15 @@ const PostPreview = (props) => {
               }}
             />
             <button onClick={onUpdate}>Update</button> */}
-            <span className={styles["post-date"]}>{props.date}</span>
+            <span className={styles["post-date"]}>
+              <SimpleDateTime
+                dateFormat={"DMY"}
+                dateSeparator={"."}
+                timeSeparator={":"}
+              >
+                {props.date}
+              </SimpleDateTime>
+            </span>
           </Layout>
         </div>
         <h2 className={styles["preview-header"]}>{props.header}</h2>

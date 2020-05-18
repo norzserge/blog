@@ -7,16 +7,15 @@ import firebase from "../firebase";
 
 const AddNewPost = (props) => {
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [header, setHeader] = useState("");
   const [text, setText] = useState("");
 
   function onSubmit(e) {
     e.preventDefault();
 
-    firebase
-      .firestore()
-      .collection("posts")
+    const db = firebase.firestore();
+    db.collection("posts")
       .add({
         name,
         date,
@@ -29,6 +28,9 @@ const AddNewPost = (props) => {
         setHeader("");
         setText("");
       });
+
+    // const postDate = new Date().toLocaleDateString();
+    // setDate(postDate);
   }
 
   return (
