@@ -8,14 +8,19 @@ import Button from "./uikit/Button";
 
 const PostPreview = (props) => {
   const [text, setText] = useState(props.text);
-  const [date, setDate] = useState(new Date());
   const [isEditable, setEditable] = useState(true);
 
   const onUpdate = () => {
     const db = firebase.firestore();
     db.collection("posts")
       .doc(props.id)
-      .set({ ...props, text, date });
+      .update({ text }) // <<-- вместо set используем update для обновления определенного поля
+      .then(function () {
+        console.info("Документ успешно обновлен!");
+      })
+      .catch(function (error) {
+        console.error("Ошибка обновления документа: ", error);
+      });
 
     setEditable(!isEditable);
   };

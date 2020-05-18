@@ -27,7 +27,6 @@ const Blog = (props) => {
           return new Date(b.date.seconds) - new Date(a.date.seconds);
         });
 
-        console.log(newPosts);
         setPosts(newPosts);
       });
     };

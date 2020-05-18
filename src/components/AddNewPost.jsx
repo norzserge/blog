@@ -28,9 +28,6 @@ const AddNewPost = (props) => {
         setHeader("");
         setText("");
       });
-
-    // const postDate = new Date().toLocaleDateString();
-    // setDate(postDate);
   }
 
   return (
