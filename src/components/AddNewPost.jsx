@@ -27,6 +27,12 @@ const AddNewPost = (props) => {
         setDate("");
         setHeader("");
         setText("");
+      })
+      .then(function () {
+        console.info("Пост был успешно опубликован!");
+      })
+      .catch(function (error) {
+        console.error("Ошибка публикации поста: ", error);
       });
   }
 
