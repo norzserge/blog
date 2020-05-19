@@ -10,6 +10,8 @@ const Blog = (props) => {
   const [sortNewFirst, setSort] = useState(true);
 
   useEffect(() => {
+    let cleanupFunction = false;
+
     const fetchData = async () => {
       const db = firebase.firestore();
       const data = await db.collection("posts");
@@ -36,14 +38,17 @@ const Blog = (props) => {
             return new Date(a.date.seconds) - new Date(b.date.seconds);
           });
         }
-
-        setPosts(newPosts);
+        /*
+         ** непосредственное обновление состояния при условии, что компонент не размонтирован
+         ** https://habr.com/ru/post/493496/ (подробное описание ошибки, связанной с утечкой памяти)
+         */
+        if (!cleanupFunction) setPosts(newPosts);
       });
     };
     fetchData();
 
-    // очистка подписки
-    return () => fetchData();
+    // функция очистки useEffect
+    return () => (cleanupFunction = true);
   }, [sortNewFirst]); // <<-- sortNew в массиве является триггером, при изменении которого происходит перерисовка, а [] эмулирует хук ComponentDidMount (HTML шаблон готов для дальнейшей работы)
 
   const sort = () => {

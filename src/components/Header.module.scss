@@ -1,11 +1,16 @@
 .header {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
-  padding: 20px 0;
-  background: #eee;
+  margin-bottom: 50px;
+  padding: 10px 0;
+  background: #4e4e4e;
 }
 .header-inner {
+  display: flex;
   width: 100%;
   max-width: 980px;
+}
+.logo {
+  width: 75px;
+  margin-right: 50px;
 }

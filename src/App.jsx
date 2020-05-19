@@ -1,5 +1,7 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Blog from "./pages/Blog";
+import About from "./pages/About";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -15,14 +17,19 @@ firebase.firestore().collection("posts").add({
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <main className="content">
-        <Blog />
-        <Sidebar />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <main className="content">
+          <Switch>
+            <Route exact path="/" component={Blog} />
+            <Route exact path="/about" component={About} />
+          </Switch>
+          <Sidebar />
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

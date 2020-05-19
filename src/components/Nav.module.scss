@@ -1,0 +1,15 @@
+.nav-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.nav-item {
+  list-style: none;
+  &:not(:last-child) {
+    margin-right: 16px;
+  }
+  a {
+    color: #bfbfbf;
+  }
+}

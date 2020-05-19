@@ -4,8 +4,8 @@
 
 Используемые технологии:
 
-- React JS (CRA)
-- FireBase
+- React JS (CRA, Route)
+- FireBase (DataBase, Authentication)
 - GIT
 - Yarn
 - SASS
