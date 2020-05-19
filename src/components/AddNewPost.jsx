@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "./uikit/Button";
 import Textfield from "./uikit/Textfield";
 import Textarea from "./uikit/Textarea";
@@ -34,10 +34,12 @@ const AddNewPost = (props) => {
       .catch(function (error) {
         console.error("Ошибка публикации поста: ", error);
       });
+
+    document.getElementById("add-post-form").reset();
   }
 
   return (
-    <form className={styles["add-post"]} onSubmit={onSubmit}>
+    <form className={styles["add-post"]} onSubmit={onSubmit} id="add-post-form">
       <div className={styles.control}>
         <Textfield
           placeholder="Ваше имя"
