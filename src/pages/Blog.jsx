@@ -6,7 +6,7 @@ import firebase from "../firebase";
 
 const Blog = (props) => {
   const [posts, setPosts] = useState([]);
-  const [sortNew, setSort] = useState(true);
+  const [sortNewFirst, setSort] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +14,8 @@ const Blog = (props) => {
       const data = await db.collection("posts");
       /*
        ** Можно использововать .get() и onSnapShot().
-       ** Первый вариант позволяет получить содержимое один раз. Второй вариант позволяет "слушать" документ и обновлять содрежимое при изменении документа.
+       ** Первый вариант позволяет получить содержимое один раз.
+       ** Второй вариант позволяет "слушать" документ и обновлять содержимое при изменении документа.
        */
       data.onSnapshot((snapshot) => {
         const newPosts = snapshot.docs.map((doc) => ({
@@ -23,7 +24,7 @@ const Blog = (props) => {
           ...doc.data(),
         }));
 
-        if (sortNew) {
+        if (sortNewFirst) {
           // сортировка (сначала новые сообщения)
           newPosts.sort((a, b) => {
             return new Date(b.date.seconds) - new Date(a.date.seconds);
@@ -42,10 +43,10 @@ const Blog = (props) => {
 
     // очистка подписки
     return () => fetchData();
-  }, [sortNew]); // <<-- sortNew в массиве является триггером, при изменении которого происходит перерисовка
+  }, [sortNewFirst]); // <<-- sortNew в массиве является триггером, при изменении которого происходит перерисовка, а [] эмулирует хук ComponentDidMount (HTML шаблон готов для дальнейшей работы)
 
   const sort = () => {
-    setSort(!sortNew);
+    setSort(!sortNewFirst);
   };
 
   return (
