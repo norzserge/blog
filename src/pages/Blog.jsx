@@ -6,6 +6,7 @@ import firebase from "../firebase";
 
 const Blog = (props) => {
   const [posts, setPosts] = useState([]);
+  const [sortNew, setSort] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,10 +23,17 @@ const Blog = (props) => {
           ...doc.data(),
         }));
 
-        // сортировка (сначала новые сообщения)
-        newPosts.sort((a, b) => {
-          return new Date(b.date.seconds) - new Date(a.date.seconds);
-        });
+        if (sortNew) {
+          // сортировка (сначала новые сообщения)
+          newPosts.sort((a, b) => {
+            return new Date(b.date.seconds) - new Date(a.date.seconds);
+          });
+        } else {
+          // сортировка (сначала старые сообщения)
+          newPosts.sort((a, b) => {
+            return new Date(a.date.seconds) - new Date(b.date.seconds);
+          });
+        }
 
         setPosts(newPosts);
       });
@@ -34,11 +42,16 @@ const Blog = (props) => {
 
     // очистка подписки
     return () => fetchData();
-  }, []);
+  }, [sortNew]); // <<-- sortNew в массиве является триггером, при изменении которого происходит перерисовка
+
+  const sort = () => {
+    setSort(!sortNew);
+  };
 
   return (
     <div className={styles.blog}>
       <AddNewPost />
+      <button onClick={sort}>Sort</button>
       <ul className={styles["blog-list"]}>
         {posts.map((post, index) => (
           <li key={index} className={styles["blog-item"]}>
