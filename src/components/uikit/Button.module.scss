@@ -1,4 +1,6 @@
 .btn {
+  display: inline-flex;
+  align-items: center;
   padding: 6px 9px;
   border-radius: 2px;
   font-size: 14px;
@@ -10,26 +12,31 @@
 }
 .ligth {
   color: #212529;
+  fill: #7b7b7b;
   background-color: #f8f9fa;
   border-color: #f8f9fa;
 }
 .primary {
   color: #fff;
+  fill: #fff;
   background-color: #007bff;
   border-color: #007bff;
 }
 .success {
   color: #fff;
+  fill: #fff;
   background-color: #28a745;
   border-color: #28a745;
 }
 .modify {
   color: #212529;
+  fill: #212529;
   background-color: #ffc107;
   border-color: #ffc107;
 }
 .danger {
   color: #fff;
+  fill: #fff;
   background-color: #dc3545;
   border-color: #dc3545;
 }

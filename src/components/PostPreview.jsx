@@ -5,6 +5,10 @@ import Layout from "./uikit/Layout";
 import firebase from "../firebase";
 import SimpleDateTime from "react-simple-timestamp-to-date";
 import Button from "./uikit/Button";
+import { ReactComponent as EditIcon } from "../img/icons/edit.svg";
+import { ReactComponent as CancelIcon } from "../img/icons/cancel.svg";
+import { ReactComponent as DeleteIcon } from "../img/icons/delete.svg";
+import { ReactComponent as SaveIcon } from "../img/icons/save.svg";
 
 const PostPreview = (props) => {
   const [text, setText] = useState(props.text);
@@ -68,23 +72,41 @@ const PostPreview = (props) => {
             }}
           />
         )}
-
         <Layout direction="horizontal" cssClass="editable-field-controls">
           {isEditable ? (
-            <Button
-              text="Редактировать пост"
-              type="modify"
-              onClickProp={onEdit}
-            />
+            <Button type="modify" onClickProp={onEdit}>
+              <span>Редактировать пост</span>
+              <EditIcon
+                width="12px"
+                height="12px"
+                style={{ marginLeft: "4px" }}
+              />
+            </Button>
           ) : (
             <>
-              <Button text="Сохранить" type="success" onClickProp={onUpdate} />
-              <Button text="Отменить" type="ligth" onClickProp={onEdit} />
+              <Button type="success" onClickProp={onUpdate}>
+                <span>Сохранить</span>
+                <SaveIcon
+                  width="14px"
+                  height="14px"
+                  style={{ marginLeft: "8px" }}
+                />
+              </Button>
+              <Button type="ligth" onClickProp={onEdit}>
+                <span>Отмена</span>
+                <CancelIcon
+                  width="12px"
+                  height="12px"
+                  style={{ marginLeft: "8px" }}
+                />
+              </Button>
               <Button
-                text="Удалить пост"
                 type="danger"
                 onClickProp={onDelete}
-              />
+                inlineStyles={{ marginLeft: "auto" }}
+              >
+                <DeleteIcon width="14px" height="14px" />
+              </Button>
             </>
           )}
         </Layout>

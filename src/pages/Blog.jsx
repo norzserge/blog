@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddNewPost from "../components/AddNewPost";
 import PostPreview from "../components/PostPreview";
+import Sort from "../components/Sort";
 import styles from "./Blog.module.scss";
 import firebase from "../firebase";
 
@@ -52,7 +53,7 @@ const Blog = (props) => {
   return (
     <div className={styles.blog}>
       <AddNewPost />
-      <button onClick={sort}>Sort</button>
+      <Sort isSort={sortNewFirst} onSort={sort} />
       <ul className={styles["blog-list"]}>
         {posts.map((post, index) => (
           <li key={index} className={styles["blog-item"]}>

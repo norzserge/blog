@@ -4,6 +4,7 @@ import Textfield from "./uikit/Textfield";
 import Textarea from "./uikit/Textarea";
 import styles from "./AddNewPost.module.scss";
 import firebase from "../firebase";
+import { ReactComponent as SendIcon } from "../img/icons/send.svg";
 
 const AddNewPost = (props) => {
   const [name, setName] = useState("");
@@ -66,7 +67,10 @@ const AddNewPost = (props) => {
         />
       </div>
       <div className={styles.control}>
-        <Button text="Отправить" type="primary" />
+        <Button type="primary">
+          <span>Отправить</span>
+          <SendIcon width="14px" height="14px" style={{ marginLeft: "8px" }} />
+        </Button>
       </div>
     </form>
   );

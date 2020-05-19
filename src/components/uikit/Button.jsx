@@ -7,8 +7,9 @@ const Button = (props) => {
     <button
       className={classnames(styles.btn, styles[props.type])}
       onClick={props.onClickProp}
+      style={props.inlineStyles}
     >
-      {props.text}
+      {props.text ? props.text : props.children}
     </button>
   );
 };
