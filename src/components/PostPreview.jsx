@@ -29,11 +29,18 @@ const PostPreview = (props) => {
     setEditable(!isEditable);
   };
 
-  const onDelete = (e) => {
+  const onDelete = () => {
+    document.querySelector(`#${props.id}`).remove();
     const db = firebase.firestore();
-    db.collection("posts").doc(props.id).delete();
-
-    e.target.parentElement.parentElement.parentElement.remove();
+    db.collection("posts")
+      .doc(props.id)
+      .delete()
+      .then(function () {
+        console.info("Документ был успешно удален!");
+      })
+      .catch(function (error) {
+        console.error("Ошибка удаления документа: ", error);
+      });
   };
 
   const onEdit = () => {
@@ -41,9 +48,10 @@ const PostPreview = (props) => {
   };
 
   return (
-    <div className={styles.preview} id={"post-id"}>
+    <div className={styles.preview} id={props.id}>
       <div className={styles["preview-img"]}>
-        <img src={thumb} alt="thumb" className="img-fluid" />
+        {/* <img src={thumb} alt="thumb" className="img-fluid" /> */}
+        {props.img}
       </div>
       <div className={styles["preview-content"]}>
         <div className={styles["author-info"]}>

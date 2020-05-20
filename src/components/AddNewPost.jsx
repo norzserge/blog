@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./uikit/Button";
 import Textfield from "./uikit/Textfield";
 import Textarea from "./uikit/Textarea";
+import AvatarsList from "./AvatarsList";
+import Layout from "./uikit/Layout";
 import styles from "./AddNewPost.module.scss";
 import firebase from "../firebase";
 import { ReactComponent as SendIcon } from "../img/icons/send.svg";
@@ -11,6 +13,8 @@ const AddNewPost = (props) => {
   const [date, setDate] = useState(new Date());
   const [header, setHeader] = useState("");
   const [text, setText] = useState("");
+  // сохранения нисходящего потока данных (подъём состояния selected из AvatarsList в родителя)
+  let [selectedOption, setSelectedOption] = useState("option1");
 
   function onSubmit(e) {
     e.preventDefault();
@@ -22,12 +26,16 @@ const AddNewPost = (props) => {
         date,
         header,
         text,
+        selectedOption,
       })
       .then(() => {
         setName("");
-        setDate("");
+        // не обнуляем дату, чтобы использовать при повторной отправке поста
+        setDate(new Date());
         setHeader("");
         setText("");
+        // устаналиваем по дефолту img если юзер не выберет другую
+        setSelectedOption("option1");
       })
       .then(function () {
         console.info("Пост был успешно опубликован!");
@@ -39,24 +47,42 @@ const AddNewPost = (props) => {
     document.getElementById("add-post-form").reset();
   }
 
+  // сохранения нисходящего потока данных (подъём функции из AvatarsList в родителя)
+  const optionChange = (e) => {
+    if (e.target.checked) {
+      setSelectedOption((selectedOption = e.target.value));
+    }
+  };
+
   return (
-    <form className={styles["add-post"]} onSubmit={onSubmit} id="add-post-form">
-      <div className={styles.control}>
-        <Textfield
-          placeholder="Ваше имя"
-          label="Имя"
-          value={name}
-          onChangeProp={(e) => setName(e.currentTarget.value)}
-        />
-      </div>
-      <div className={styles.control}>
-        <Textfield
-          placeholder="Тема"
-          label="Заголовок"
-          value={header}
-          onChangeProp={(e) => setHeader(e.currentTarget.value)}
-        />
-      </div>
+    <form
+      className={styles["add-post-form"]}
+      onSubmit={onSubmit}
+      id="add-post-form"
+    >
+      <Layout direction={"horizontal"}>
+        <Layout direction={"vertical"}>
+          <div className={styles.control}>
+            <Textfield
+              placeholder="Ваше имя"
+              label="Имя"
+              value={name}
+              onChangeProp={(e) => setName(e.currentTarget.value)}
+            />
+          </div>
+          <div className={styles.control}>
+            <Textfield
+              placeholder="Тема"
+              label="Заголовок"
+              value={header}
+              onChangeProp={(e) => setHeader(e.currentTarget.value)}
+            />
+          </div>
+        </Layout>
+        <Layout direction="vertical">
+          <AvatarsList prop={optionChange} />
+        </Layout>
+      </Layout>
       <div className={styles.control}>
         <Textarea
           placeholder="Введите сообщение"
