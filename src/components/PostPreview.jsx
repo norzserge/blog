@@ -106,12 +106,13 @@ const PostPreview = (props) => {
                   style={{ marginLeft: "8px" }}
                 />
               </Button>
-              <Button
-                type="danger"
-                onClickProp={onDelete}
-                inlineStyles={{ marginLeft: "auto" }}
-              >
-                <DeleteIcon width="14px" height="14px" />
+              <Button type="danger" onClickProp={onDelete}>
+                <span>Удалить</span>
+                <DeleteIcon
+                  width="14px"
+                  height="14px"
+                  style={{ marginLeft: "8px" }}
+                />
               </Button>
             </>
           )}

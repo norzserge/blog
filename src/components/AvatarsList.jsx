@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "./uikit/Layout";
 import styles from "./AvatarsList.module.scss";
 import ava1 from "../img/ava-1.png";
 import ava2 from "../img/ava-2.png";
