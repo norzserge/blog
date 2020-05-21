@@ -1,3 +1,24 @@
 .avatars-list {
   display: flex;
 }
+.avatar-label {
+  display: inline-flex;
+  cursor: pointer;
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+}
+.avatar-img {
+  max-width: 100px;
+  width: 100%;
+  border-radius: 2px;
+  transition: 0.2s linear;
+}
+[id^="ava-"] {
+  display: none;
+}
+[id^="ava-"]:checked + img {
+  box-shadow: -20px 20px 0 -17px #eee, 20px -20px 0 -17px #eee,
+    20px 20px 0 -20px #969696, 0 0 0 2px #969696;
+  cursor: text;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "./uikit/Button";
 import Textfield from "./uikit/Textfield";
 import Textarea from "./uikit/Textarea";
@@ -7,6 +7,7 @@ import Layout from "./uikit/Layout";
 import styles from "./AddNewPost.module.scss";
 import firebase from "../firebase";
 import { ReactComponent as SendIcon } from "../img/icons/send.svg";
+import ava1 from "../img/ava-1.png";
 
 const AddNewPost = (props) => {
   const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const AddNewPost = (props) => {
   const [header, setHeader] = useState("");
   const [text, setText] = useState("");
   // сохранения нисходящего потока данных (подъём состояния selected из AvatarsList в родителя)
-  let [selectedOption, setSelectedOption] = useState("option1");
+  let [selectedOption, setSelectedOption] = useState(ava1); // <-- устаналиваем по дефолту src первой img если юзер не выберет другую
 
   function onSubmit(e) {
     e.preventDefault();
@@ -30,12 +31,10 @@ const AddNewPost = (props) => {
       })
       .then(() => {
         setName("");
-        // не обнуляем дату, чтобы использовать при повторной отправке поста
-        setDate(new Date());
+        setDate(new Date()); // <-- не обнуляем дату, чтобы использовать при повторной отправке поста
         setHeader("");
         setText("");
-        // устаналиваем по дефолту img если юзер не выберет другую
-        setSelectedOption("option1");
+        setSelectedOption(ava1); // <-- оставляем по дефолту src первой img если юзер не выберет другую и не рефрешнет страницу
       })
       .then(function () {
         console.info("Пост был успешно опубликован!");
@@ -51,6 +50,7 @@ const AddNewPost = (props) => {
   const optionChange = (e) => {
     if (e.target.checked) {
       setSelectedOption((selectedOption = e.target.value));
+      console.log(selectedOption);
     }
   };
 
@@ -60,8 +60,8 @@ const AddNewPost = (props) => {
       onSubmit={onSubmit}
       id="add-post-form"
     >
-      <Layout direction={"horizontal"}>
-        <Layout direction={"vertical"}>
+      <div className={styles["name-title-avatars-layout"]}>
+        <div className={styles["name-title-layout"]}>
           <div className={styles.control}>
             <Textfield
               placeholder="Ваше имя"
@@ -78,11 +78,11 @@ const AddNewPost = (props) => {
               onChangeProp={(e) => setHeader(e.currentTarget.value)}
             />
           </div>
-        </Layout>
+        </div>
         <Layout direction="vertical">
-          <AvatarsList prop={optionChange} />
+          <AvatarsList selectImg={optionChange} />
         </Layout>
-      </Layout>
+      </div>
       <div className={styles.control}>
         <Textarea
           placeholder="Введите сообщение"

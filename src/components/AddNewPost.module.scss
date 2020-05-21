@@ -15,3 +15,14 @@
     margin-bottom: 12px;
   }
 }
+
+.name-title-layout {
+  display: flex;
+  flex-direction: column;
+  margin-right: 16px;
+}
+
+.name-title-avatars-layout {
+  display: flex;
+  margin-bottom: 16px;
+}

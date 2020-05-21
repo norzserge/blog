@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./PostPreview.module.scss";
-import thumb from "../img/js.jpg";
 import Layout from "./uikit/Layout";
 import firebase from "../firebase";
 import SimpleDateTime from "react-simple-timestamp-to-date";
@@ -19,10 +18,10 @@ const PostPreview = (props) => {
     db.collection("posts")
       .doc(props.id)
       .update({ text }) // <<-- вместо set используем update для обновления определенного поля
-      .then(function () {
+      .then(() => {
         console.info("Документ успешно обновлен!");
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error("Ошибка обновления документа: ", error);
       });
 
@@ -35,10 +34,10 @@ const PostPreview = (props) => {
     db.collection("posts")
       .doc(props.id)
       .delete()
-      .then(function () {
+      .then(() => {
         console.info("Документ был успешно удален!");
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error("Ошибка удаления документа: ", error);
       });
   };
@@ -50,8 +49,7 @@ const PostPreview = (props) => {
   return (
     <div className={styles.preview} id={props.id}>
       <div className={styles["preview-img"]}>
-        {/* <img src={thumb} alt="thumb" className="img-fluid" /> */}
-        {props.img}
+        <img src={props.img} alt="аватар" className="img-fluid" />
       </div>
       <div className={styles["preview-content"]}>
         <div className={styles["author-info"]}>
