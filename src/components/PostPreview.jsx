@@ -29,7 +29,7 @@ const PostPreview = (props) => {
   };
 
   const onDelete = () => {
-    document.querySelector(`#${props.id}`).remove();
+    document.getElementById(`${props.id}`).remove();
     const db = firebase.firestore();
     db.collection("posts")
       .doc(props.id)
