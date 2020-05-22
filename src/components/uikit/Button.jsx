@@ -8,6 +8,7 @@ const Button = (props) => {
       className={classnames(styles.btn, styles[props.type])}
       onClick={props.onClickProp}
       style={props.inlineStyles}
+      disabled={!props.isDisabled}
     >
       {props.text ? props.text : props.children}
     </button>

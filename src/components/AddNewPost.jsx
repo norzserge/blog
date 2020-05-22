@@ -16,6 +16,16 @@ const AddNewPost = (props) => {
   const [text, setText] = useState("");
   // сохранения нисходящего потока данных (подъём состояния selected из AvatarsList в родителя)
   let [selectedOption, setSelectedOption] = useState(ava1); // <-- устаналиваем по дефолту src первой img если юзер не выберет другую
+  // флажки валидации
+  let [nameValid, setNameValid] = useState(false);
+  let [headerValid, setHeaderValid] = useState(false);
+  let [textValid, setTextValid] = useState(false);
+
+  const regExp = {
+    namePattern: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
+    titlePattern: /d{1,30}[A-Za-zА-Яа-яЁё0-9!?()-,.]+/g,
+    messagePattern: /^.{1,255}+/g,
+  };
 
   function onSubmit(e) {
     e.preventDefault();
@@ -54,6 +64,23 @@ const AddNewPost = (props) => {
     }
   };
 
+  // валидация поля name и обновление его state
+  const handleUserName = (e) => {
+    let currentName = e.currentTarget.value;
+    nameValid = regExp.namePattern.test(currentName);
+    console.log(currentName + " - " + nameValid);
+    if (nameValid) {
+      e.target.style.border = "1px solid green";
+      setName(currentName);
+    } else {
+      e.target.style.border = "1px solid red";
+    }
+  };
+
+  // errorClass(error) {
+  //   return(error.length === 0 ? '' : 'has-error');
+  // }
+
   return (
     <form
       className={styles["add-post-form"]}
@@ -67,7 +94,7 @@ const AddNewPost = (props) => {
               placeholder="Ваше имя"
               label="Имя"
               value={name}
-              onChangeProp={(e) => setName(e.currentTarget.value)}
+              onChangeProp={handleUserName}
             />
           </div>
           <div className={styles.control}>
@@ -93,7 +120,10 @@ const AddNewPost = (props) => {
         />
       </div>
       <div className={styles.control}>
-        <Button type="primary">
+        <Button
+          type="primary"
+          isDisabled={nameValid && headerValid && textValid}
+        >
           <span>Отправить</span>
           <SendIcon width="14px" height="14px" style={{ marginLeft: "8px" }} />
         </Button>

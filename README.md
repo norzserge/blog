@@ -11,5 +11,6 @@
 - SASS
 - SMACSS
 - CSS-modules
+- RegExp
 - HTML
 - Flex
