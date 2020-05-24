@@ -60,7 +60,11 @@ const Blog = (props) => {
       <Alert status="primary">
         Данный блог является учебным проектом и не претендует на статус
         полноценного приложения. Кодовая база расположена на GitHub по{" "}
-        <a href="https://github.com/norzserge/blog" target="_blank">
+        <a
+          href="https://github.com/norzserge/blog"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           ссылке
         </a>
       </Alert>
