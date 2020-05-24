@@ -71,7 +71,7 @@ const Blog = (props) => {
       <AddNewPost />
       <Sort isSort={sortNewFirst} onSort={sort} />
       <ul className={styles["blog-list"]}>
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           /*
            ** В качестве key лучше использовать ID записи (props.id), а не index.
            ** Иначе возникает баг удаления следующей записи за удаленной.

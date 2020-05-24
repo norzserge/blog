@@ -41,35 +41,6 @@ const AvatarsList = (props) => {
             />
           </label>
         ))}
-
-        {/* <label>
-          <input
-            type="radio"
-            name="react-tips"
-            value="option1"
-            defaultChecked
-            onChange={props.selectImg}
-          />
-          Option 1
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="react-tips"
-            value="option2"
-            onChange={props.selectImg}
-          />
-          Option 2
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="react-tips"
-            value="option3"
-            onChange={props.selectImg}
-          />
-          Option 3
-        </label> */}
       </div>
     </>
   );

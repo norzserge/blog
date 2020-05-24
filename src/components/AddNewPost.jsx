@@ -53,6 +53,9 @@ const AddNewPost = (props) => {
         console.error("Ошибка публикации поста: ", error);
       });
 
+    document.querySelector('[name = "name"]').classList.remove("no-error");
+    document.querySelector('[name = "header"]').classList.remove("no-error");
+    document.querySelector('[name = "message"]').classList.remove("no-error");
     document.getElementById("add-post-form").reset();
   }
 

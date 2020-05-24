@@ -1,0 +1,13 @@
+.logo-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+}
+.logo-item {
+  max-width: 150px;
+  margin-bottom: 15px;
+  &:not(:last-child) {
+    margin-right: 35px;
+  }
+}
