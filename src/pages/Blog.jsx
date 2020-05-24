@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddNewPost from "../components/AddNewPost";
 import PostPreview from "../components/PostPreview";
+import Alert from "../components/uikit/Alert";
 import Sort from "../components/Sort";
 import styles from "./Blog.module.scss";
 import firebase from "../firebase";
@@ -56,6 +57,13 @@ const Blog = (props) => {
 
   return (
     <div className={styles.blog}>
+      <Alert status="primary">
+        Данный блог является учебным проектом и не претендует на статус
+        полноценного приложения. Кодовая база расположена на GitHub по{" "}
+        <a href="https://github.com/norzserge/blog" target="_blank">
+          ссылке
+        </a>
+      </Alert>
       <AddNewPost />
       <Sort isSort={sortNewFirst} onSort={sort} />
       <ul className={styles["blog-list"]}>

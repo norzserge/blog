@@ -11,5 +11,12 @@
   }
   a {
     color: #bfbfbf;
+    &.active {
+      padding: 6px 8px;
+      background: #fff;
+      border-radius: 2px;
+      color: #4e4e4e;
+      cursor: default;
+    }
   }
 }

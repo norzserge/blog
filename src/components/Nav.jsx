@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./Nav.module.scss";
 
 const Nav = (props) => {
@@ -17,7 +17,9 @@ const Nav = (props) => {
     <ul className={styles["nav-list"]}>
       {links.map((link, index) => (
         <li key={index} className={styles["nav-item"]}>
-          <Link to={link.to}>{link.text}</Link>
+          <NavLink exact activeClassName={styles["active"]} to={link.to}>
+            {link.text}
+          </NavLink>
         </li>
       ))}
     </ul>

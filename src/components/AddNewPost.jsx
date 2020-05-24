@@ -64,29 +64,33 @@ const AddNewPost = (props) => {
   };
 
   const fieldValidate = (e) => {
-    const fieldName = e.target.name;
+    const fieldName = e.currentTarget.name;
     switch (fieldName) {
       case "name":
-        setNameValid((nameValid = errors[0].pattern.test(e.target.value)));
+        setNameValid(
+          (nameValid = errors[0].pattern.test(e.currentTarget.value))
+        );
         addErrorStyle(nameValid, e);
         if (nameValid) {
-          setName(e.target.value);
+          setName(e.currentTarget.value);
         }
         break;
       case "header":
-        setHeaderValid((headerValid = errors[1].pattern.test(e.target.value)));
+        setHeaderValid(
+          (headerValid = errors[1].pattern.test(e.currentTarget.value))
+        );
         addErrorStyle(headerValid, e);
         if (headerValid) {
-          setHeader(e.target.value);
+          setHeader(e.currentTarget.value);
         }
         break;
       case "message":
         setMessageValid(
-          (messageValid = errors[2].pattern.test(e.target.value))
+          (messageValid = errors[2].pattern.test(e.currentTarget.value))
         );
         addErrorStyle(messageValid, e);
         if (messageValid) {
-          setText(e.target.value);
+          setText(e.currentTarget.value);
         }
         break;
       default:
