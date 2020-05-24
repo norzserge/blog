@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import firebase from "../firebase";
+import styles from "./AddNewPost.module.scss";
+
+import AvatarsList from "./AvatarsList";
 import Button from "./uikit/Button";
 import Textfield from "./uikit/Textfield";
 import Textarea from "./uikit/Textarea";
-import AvatarsList from "./AvatarsList";
 import Layout from "./uikit/Layout";
-import styles from "./AddNewPost.module.scss";
-import firebase from "../firebase";
+
+import addErrorStyle from "./modules/addErrorStyle";
+import errors from "./modules/errors";
+import errorOutput from "./modules/errorOutput";
+
 import { ReactComponent as SendIcon } from "../img/icons/send.svg";
 import ava1 from "../img/ava-1.png";
-import { useEffect } from "react";
 
 const AddNewPost = (props) => {
   const [name, setName] = useState("");
@@ -17,6 +22,10 @@ const AddNewPost = (props) => {
   const [text, setText] = useState("");
   // сохранения нисходящего потока данных (подъём состояния selected из AvatarsList в родителя)
   let [selectedOption, setSelectedOption] = useState(ava1); // <-- устаналиваем по дефолту src первой img если юзер не выберет другую
+  let [nameValid, setNameValid] = useState(null);
+  let [headerValid, setHeaderValid] = useState(null);
+  let [messageValid, setMessageValid] = useState(null);
+  let [formValid, setFormValid] = useState(false);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -54,53 +63,18 @@ const AddNewPost = (props) => {
     }
   };
 
-  // валидация поля name и обновление его state
-  let [nameValid, setNameValid] = useState(null);
-  let [headerValid, setHeaderValid] = useState(null);
-  let [messageValid, setMessageValid] = useState(null);
-  let [formValid, setFormValid] = useState(false);
-
-  const regExp = [
-    {
-      namePattern: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
-      errorText: "Имя не может содержать знаков пунктуации или цифр",
-    },
-    {
-      namePattern2: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
-      errorText2: "Заголовок не должен содержать спец. символов",
-    },
-    {
-      namePattern3: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
-      errorText3: "Текст не должен быть длинее 900 символов",
-    },
-    // titlePattern: /d{1,30}[A-Za-zА-Яа-яЁё0-9!?()-,.]+/g,
-    // messagePattern: /^.{1,255}+/g,
-  ];
-
-  const addErrorStyle = (field, e) => {
-    if (field) {
-      e.target.classList.remove("has-error");
-      e.target.classList.add("no-error");
-    } else {
-      e.target.classList.remove("no-error");
-      e.target.classList.add("has-error");
-    }
-  };
-
   const fieldValidate = (e) => {
     const fieldName = e.target.name;
     switch (fieldName) {
       case "name":
-        setNameValid((nameValid = regExp[0].namePattern.test(e.target.value)));
+        setNameValid((nameValid = errors[0].pattern.test(e.target.value)));
         addErrorStyle(nameValid, e);
         if (nameValid) {
           setName(e.target.value);
         }
         break;
       case "header":
-        setHeaderValid(
-          (headerValid = regExp[1].namePattern2.test(e.target.value))
-        );
+        setHeaderValid((headerValid = errors[1].pattern.test(e.target.value)));
         addErrorStyle(headerValid, e);
         if (headerValid) {
           setHeader(e.target.value);
@@ -108,7 +82,7 @@ const AddNewPost = (props) => {
         break;
       case "message":
         setMessageValid(
-          (messageValid = regExp[2].namePattern3.test(e.target.value))
+          (messageValid = errors[2].pattern.test(e.target.value))
         );
         addErrorStyle(messageValid, e);
         if (messageValid) {
@@ -165,17 +139,29 @@ const AddNewPost = (props) => {
           onChangeProp={fieldValidate}
         />
       </div>
-      <div className={styles.control}>
-        <Button type="primary" isDisabled={formValid}>
-          <span>Отправить</span>
-          <SendIcon width="14px" height="14px" style={{ marginLeft: "8px" }} />
-        </Button>
-        <span>
-          {nameValid !== null && !nameValid ? regExp[0].errorText : ""}
-          {headerValid !== null && !headerValid ? regExp[1].errorText2 : ""}
-          {messageValid !== null && !messageValid ? regExp[2].errorText3 : ""}
-        </span>
-      </div>
+      <Layout direction={"horizontal"}>
+        <div className={styles["send-button"]}>
+          <Button type="primary" isDisabled={formValid}>
+            <span>Отправить</span>
+            <SendIcon
+              width="14px"
+              height="14px"
+              style={{ marginLeft: "8px" }}
+            />
+          </Button>
+        </div>
+        <div className={styles["errors-panel"]}>
+          <div className={styles["error-item"]}>
+            {errorOutput(nameValid, errors[0])}
+          </div>
+          <div className={styles["error-item"]}>
+            {errorOutput(headerValid, errors[1])}
+          </div>
+          <div className={styles["error-item"]}>
+            {errorOutput(messageValid, errors[2])}
+          </div>
+        </div>
+      </Layout>
     </form>
   );
 };

@@ -16,6 +16,10 @@
   }
 }
 
+.send-button {
+  margin-right: 16px;
+}
+
 .name-title-layout {
   display: flex;
   flex-direction: column;
@@ -25,4 +29,18 @@
 .name-title-avatars-layout {
   display: flex;
   margin-bottom: 16px;
+}
+
+.errors-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.error-item {
+  font-size: 13px;
+  color: #f7115f;
+  &:not(:last-child):not(:empty) {
+    margin-right: 16px;
+  }
 }
