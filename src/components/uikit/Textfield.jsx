@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Textfield.module.scss";
+import classnames from "classnames";
 
 const Textfield = (props) => {
   return (
@@ -8,8 +9,9 @@ const Textfield = (props) => {
       <input
         type="text"
         defaultValue={props.value}
-        className={styles.textfield}
+        className={classnames(styles.textfield, styles[props.cssClass])}
         placeholder={props.placeholder}
+        name={props.name}
         onChange={props.onChangeProp}
       />
     </div>

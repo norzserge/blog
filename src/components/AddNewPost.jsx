@@ -8,6 +8,7 @@ import styles from "./AddNewPost.module.scss";
 import firebase from "../firebase";
 import { ReactComponent as SendIcon } from "../img/icons/send.svg";
 import ava1 from "../img/ava-1.png";
+import { useEffect } from "react";
 
 const AddNewPost = (props) => {
   const [name, setName] = useState("");
@@ -16,16 +17,6 @@ const AddNewPost = (props) => {
   const [text, setText] = useState("");
   // сохранения нисходящего потока данных (подъём состояния selected из AvatarsList в родителя)
   let [selectedOption, setSelectedOption] = useState(ava1); // <-- устаналиваем по дефолту src первой img если юзер не выберет другую
-  // флажки валидации
-  let [nameValid, setNameValid] = useState(false);
-  let [headerValid, setHeaderValid] = useState(false);
-  let [textValid, setTextValid] = useState(false);
-
-  const regExp = {
-    namePattern: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
-    titlePattern: /d{1,30}[A-Za-zА-Яа-яЁё0-9!?()-,.]+/g,
-    messagePattern: /^.{1,255}+/g,
-  };
 
   function onSubmit(e) {
     e.preventDefault();
@@ -60,26 +51,78 @@ const AddNewPost = (props) => {
   const optionChange = (e) => {
     if (e.target.checked) {
       setSelectedOption((selectedOption = e.target.value));
-      console.log(selectedOption);
     }
   };
 
   // валидация поля name и обновление его state
-  const handleUserName = (e) => {
-    let currentName = e.currentTarget.value;
-    nameValid = regExp.namePattern.test(currentName);
-    console.log(currentName + " - " + nameValid);
-    if (nameValid) {
-      e.target.style.border = "1px solid green";
-      setName(currentName);
+  let [nameValid, setNameValid] = useState(null);
+  let [headerValid, setHeaderValid] = useState(null);
+  let [messageValid, setMessageValid] = useState(null);
+  let [formValid, setFormValid] = useState(false);
+
+  const regExp = [
+    {
+      namePattern: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
+      errorText: "Имя не может содержать знаков пунктуации или цифр",
+    },
+    {
+      namePattern2: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
+      errorText2: "Заголовок не должен содержать спец. символов",
+    },
+    {
+      namePattern3: /^[а-яА-Яa-zA-ZёЁ\s]+$/i,
+      errorText3: "Текст не должен быть длинее 900 символов",
+    },
+    // titlePattern: /d{1,30}[A-Za-zА-Яа-яЁё0-9!?()-,.]+/g,
+    // messagePattern: /^.{1,255}+/g,
+  ];
+
+  const addErrorStyle = (field, e) => {
+    if (field) {
+      e.target.classList.remove("has-error");
+      e.target.classList.add("no-error");
     } else {
-      e.target.style.border = "1px solid red";
+      e.target.classList.remove("no-error");
+      e.target.classList.add("has-error");
     }
   };
 
-  // errorClass(error) {
-  //   return(error.length === 0 ? '' : 'has-error');
-  // }
+  const fieldValidate = (e) => {
+    const fieldName = e.target.name;
+    switch (fieldName) {
+      case "name":
+        setNameValid((nameValid = regExp[0].namePattern.test(e.target.value)));
+        addErrorStyle(nameValid, e);
+        if (nameValid) {
+          setName(e.target.value);
+        }
+        break;
+      case "header":
+        setHeaderValid(
+          (headerValid = regExp[1].namePattern2.test(e.target.value))
+        );
+        addErrorStyle(headerValid, e);
+        if (headerValid) {
+          setHeader(e.target.value);
+        }
+        break;
+      case "message":
+        setMessageValid(
+          (messageValid = regExp[2].namePattern3.test(e.target.value))
+        );
+        addErrorStyle(messageValid, e);
+        if (messageValid) {
+          setText(e.target.value);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    setFormValid((formValid = !nameValid || !headerValid || !messageValid));
+  }, [nameValid, headerValid, messageValid]);
 
   return (
     <form
@@ -93,16 +136,18 @@ const AddNewPost = (props) => {
             <Textfield
               placeholder="Ваше имя"
               label="Имя"
+              name="name"
               value={name}
-              onChangeProp={handleUserName}
+              onChangeProp={fieldValidate}
             />
           </div>
           <div className={styles.control}>
             <Textfield
               placeholder="Тема"
               label="Заголовок"
+              name="header"
               value={header}
-              onChangeProp={(e) => setHeader(e.currentTarget.value)}
+              onChangeProp={fieldValidate}
             />
           </div>
         </div>
@@ -114,19 +159,22 @@ const AddNewPost = (props) => {
         <Textarea
           placeholder="Введите сообщение"
           label="Сообщение"
+          name="message"
           rowNum={5}
           value={text}
-          onChangeProp={(e) => setText(e.currentTarget.value)}
+          onChangeProp={fieldValidate}
         />
       </div>
       <div className={styles.control}>
-        <Button
-          type="primary"
-          isDisabled={nameValid && headerValid && textValid}
-        >
+        <Button type="primary" isDisabled={formValid}>
           <span>Отправить</span>
           <SendIcon width="14px" height="14px" style={{ marginLeft: "8px" }} />
         </Button>
+        <span>
+          {nameValid !== null && !nameValid ? regExp[0].errorText : ""}
+          {headerValid !== null && !headerValid ? regExp[1].errorText2 : ""}
+          {messageValid !== null && !messageValid ? regExp[2].errorText3 : ""}
+        </span>
       </div>
     </form>
   );

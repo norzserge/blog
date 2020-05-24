@@ -33,3 +33,13 @@
     margin-right: 8px;
   }
 }
+
+.has-error {
+  border: 1px solid red !important;
+  box-shadow: 0px 0px 2px red !important;
+}
+
+.no-error {
+  border: 1px solid green !important;
+  box-shadow: 0px 0px 2px green !important;
+}
