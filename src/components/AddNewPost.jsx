@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import styles from "./AddNewPost.module.scss";
 
 import AvatarsList from "./AvatarsList";

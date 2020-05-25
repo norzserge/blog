@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from "./PostPreview.module.scss";
 import Layout from "./uikit/Layout";
-import firebase from "../firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import SimpleDateTime from "react-simple-timestamp-to-date";
 import Button from "./uikit/Button";
 import { ReactComponent as EditIcon } from "../img/icons/edit.svg";

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import firebase from "../firebase";
 import AddNewPost from "../components/AddNewPost";
 import PostPreview from "../components/PostPreview";
 import Alert from "../components/uikit/Alert";
 import Sort from "../components/Sort";
 import styles from "./Blog.module.scss";
-import firebase from "../firebase";
 
 const Blog = (props) => {
   const [posts, setPosts] = useState([]);
