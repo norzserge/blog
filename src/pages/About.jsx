@@ -8,6 +8,7 @@ import LogoSass from "../img/logo-sass.png";
 import LogoSmacss from "../img/logo-smacss.png";
 import LogoFlex from "../img/logo-flex.png";
 import LogoHTML from "../img/logo-html.png";
+import LogoJS from "../img/logo-js.png";
 import LogoFirebase from "../img/logo-firebase.png";
 import LogoCSSModules from "../img/logo-css-modules.png";
 import LogoRegExp from "../img/logo-regexp.png";
@@ -23,6 +24,7 @@ const About = (props) => {
     { src: LogoCSSModules, width: 90 },
     { src: LogoRegExp, width: 120 },
     { src: LogoFlex, width: 120 },
+    { src: LogoJS, width: 75 },
     { src: LogoHTML, width: 60 },
   ];
   return (
