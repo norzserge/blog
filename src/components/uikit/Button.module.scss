@@ -10,7 +10,7 @@
     filter: brightness(95%);
   }
   &:disabled {
-    opacity: 50%;
+    opacity: 0.5;
     cursor: text;
   }
 }
